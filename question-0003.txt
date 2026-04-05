@@ -1,0 +1,23 @@
+Segmentación Trimestral de ClientesEnunciado:
+Una empresa de retail analiza el comportamiento de compra de sus clientes cada trimestre. Los datos incluyen variables numéricas como monto promedio, frecuencia de visitas y ticket máximo. El equipo quiere identificar grupos naturales de clientes en cada trimestre, pero no sabe cuántos grupos usar, por lo que deben probarse varios valores de K y seleccionar el mejor según el Silhouette Score.Se requiere implementar una función que reciba un DataFrame con estas métricas y una columna de fechas, y para cada trimestre determine automáticamente el número óptimo de clusters.Función a implementar:
+
+Nombre: evaluar_clusters_por_periodo
+Argumentos:
+
+df (pd.DataFrame): DataFrame con columnas numéricas de comportamiento de clientes y una columna de fechas.
+fecha_col (str): Nombre de la columna de fechas.
+k_min (int): Número mínimo de clusters a probar. Por defecto 2.
+k_max (int): Número máximo de clusters a probar. Por defecto 5.
+
+
+Retorna: (pd.DataFrame) DataFrame con columnas ["trimestre", "mejor_k", "silhouette_score"], ordenado cronológicamente por trimestre y con índice reiniciado.
+La función debe:
+
+Convertir fecha_col a datetime y extraer el trimestre como período (formato YYYY-QX, ej. 2023-Q1).
+Ordenar cronológicamente los trimestres únicos.
+Para cada trimestre, seleccionar solo las columnas numéricas (excluyendo fecha_col).
+Imputar valores faltantes con SimpleImputer(strategy='mean') ajustado solo sobre los datos de ese trimestre.
+Escalar con StandardScaler ajustado solo sobre los datos de ese trimestre.
+Probar valores de k entre k_min y k_max, entrenar KMeans(random_state=42, n_init=10) y calcular el silhouette_score para cada k.
+Seleccionar el k que maximice el silhouette score. En caso de empate, elegir el k más pequeño.
+Si el trimestre tiene menos de k_min * 2 filas, omitirlo.
