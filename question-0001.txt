@@ -1,0 +1,18 @@
+Análisis de Deriva Temporal en Modelos de Regresión
+Contexto:
+Una empresa de energía eléctrica entrena modelos de predicción de demanda usando datos históricos por mes. Sin embargo, sospechan que el rendimiento del modelo se degrada con el tiempo porque los patrones de consumo cambian gradualmente. Quieren medir de forma cuantitativa cómo evoluciona el error del modelo mes a mes.
+Tu Misión:
+Escribe una función llamada evaluar_deriva_mensual(df, target_col, fecha_col) que realice lo siguiente:
+
+Convierta fecha_col a tipo datetime y extraiga el mes-año como período (formato YYYY-MM).
+Ordene los períodos cronológicamente. Use el primer período disponible como conjunto de entrenamiento y evalúe el modelo sobre cada uno de los períodos siguientes de forma acumulativa (es decir, entrena con el mes 1, evalúa en mes 2; entrena con meses 1-2, evalúa en mes 3; y así sucesivamente).
+En cada iteración impute valores faltantes con la mediana usando SimpleImputer y escale con StandardScaler (ajustados solo sobre los datos de entrenamiento acumulados).
+Entrene un Ridge(alpha=1.0) en cada iteración.
+Calcule el RMSE sobre el conjunto de evaluación de cada período.
+Devuelva un pd.DataFrame con las columnas ["periodo_evaluacion", "n_meses_entrenamiento", "rmse"], ordenado cronológicamente por periodo_evaluacion, con índice reiniciado.
+
+Restricciones:
+Librerías permitidas: pandas, numpy, sklearn.
+No usar loops sobre filas individuales.
+Si en algún período de evaluación no hay datos suficientes (menos de 2 filas), omitir ese período.
+
