@@ -1,0 +1,15 @@
+Análisis de Importancia de Características con Permutación por Grupos Temporales
+Función: evaluar_importancia_temporal(df, target_col, fecha_col)
+Lógica:
+
+Convertir fecha_col a datetime y extraer el año (YYYY).
+Ordenar los años cronológicamente.
+Usar los dos primeros años como entrenamiento y el último año como evaluación (si hay menos de 3 años únicos, retornar un DataFrame vacío con columnas ["feature", "importancia_media", "importancia_std"]).
+Separar features numéricas (excluyendo fecha_col y target_col).
+Imputar con SimpleImputer(strategy='median') ajustado solo sobre train.
+Escalar con StandardScaler ajustado solo sobre train.
+Entrenar un RandomForestRegressor(n_estimators=100, random_state=42).
+Calcular permutation_importance sobre el conjunto de evaluación con n_repeats=10 y random_state=42.
+Retornar un pd.DataFrame con columnas ["feature", "importancia_media", "importancia_std"], ordenado de mayor a menor por importancia_media, con índice reiniciado.
+
+Restricciones: pandas, numpy, sklearn. Sin loops sobre filas individuales.
