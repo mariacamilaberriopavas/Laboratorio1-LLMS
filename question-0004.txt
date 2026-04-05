@@ -1,0 +1,26 @@
+Detección de Variables con Correlación Inestable entre Semestres
+Enunciado:
+Una empresa financiera entrena modelos de predicción de mora en clientes. El equipo de riesgo ha notado que algunas variables que en un semestre correlacionan fuertemente con el objetivo, en el siguiente semestre pierden esa correlación, lo que indica inestabilidad en las relaciones y puede degradar los modelos en producción.
+Se requiere implementar una función que identifique automáticamente qué variables presentan una correlación inestable con la variable objetivo al comparar los dos primeros semestres disponibles en los datos.
+Función a implementar:
+
+Nombre: detectar_correlacion_inestable
+Argumentos:
+
+df (pd.DataFrame): DataFrame con columnas numéricas predictoras, una columna objetivo y una columna de fechas. Puede contener valores nulos.
+fecha_col (str): Nombre de la columna de fechas.
+target_col (str): Nombre de la columna objetivo.
+umbral_diff (float): Diferencia absoluta de correlación mínima para considerar una variable inestable. Por defecto 0.3.
+
+
+Retorna: (pd.DataFrame) DataFrame con columnas ["feature", "corr_s1", "corr_s2", "diff_abs", "es_inestable"], ordenado de mayor a menor por diff_abs, con índice reiniciado.
+
+La función debe:
+
+Convertir fecha_col a datetime y extraer el semestre como período (YYYY-S1 o YYYY-S2).
+Ordenar cronológicamente los semestres únicos. Si hay menos de 2 semestres, retornar un DataFrame vacío con las columnas ["feature", "corr_s1", "corr_s2", "diff_abs", "es_inestable"].
+Tomar únicamente los dos primeros semestres disponibles.
+Para cada semestre, seleccionar las columnas numéricas excluyendo fecha_col y target_col, e imputar con SimpleImputer(strategy='median') ajustado sobre ese semestre.
+Calcular la correlación de Pearson entre cada feature y target_col usando np.corrcoef para cada semestre por separado.
+Calcular la diferencia absoluta de correlación entre semestre 1 y semestre 2 para cada feature.
+Marcar como inestable (es_inestable = True) si la diferencia absoluta supera umbral_diff.
