@@ -15,6 +15,7 @@ def generar_caso_de_uso_evaluar_clusters_por_periodo():
         bloque = np.random.randn(n, n_features)
         mask   = np.random.random((n, n_features)) < 0.05
         bloque[mask] = np.nan
+
         df_trim = pd.DataFrame(
             bloque,
             columns=[f"feat_{j}" for j in range(n_features)]
@@ -28,7 +29,8 @@ def generar_caso_de_uso_evaluar_clusters_por_periodo():
     k_min = int(np.random.choice([2, 3]))
     k_max = int(np.random.choice([4, 5, 6]))
 
-   enunciado = {
+    # ✅ BIEN INDENTADO
+    enunciado = {
         "titulo": "Segmentación Trimestral de Clientes",
         "descripcion": "Evaluar clustering por periodos de tiempo",
         "funcion": "evaluar_clusters_por_periodo",
