@@ -26,5 +26,30 @@ def generar_caso_de_uso_detectar_correlacion_inestable():
     df = df.sample(frac=1, random_state=np.random.randint(0, 999)).reset_index(drop=True)
 
     umbral = round(float(np.random.uniform(0.2, 0.5)), 2)
+    enunciado = {
+        "titulo": "Detección de Correlación Inestable",
+        "descripcion": "Identificar cambios en la correlación entre variables a lo largo del tiempo",
+        "funcion": "detectar_correlacion_inestable",
+        "argumentos": {
+            "df": "DataFrame con variables numéricas, una columna de fecha y una variable objetivo",
+            "fecha_col": "Nombre de la columna de fechas",
+            "target_col": "Nombre de la variable objetivo",
+            "umbral": "Valor mínimo de cambio en la correlación para considerarse inestable"
+        },
+        "retorno": (
+            "DataFrame con periodos donde la correlación cambia significativamente "
+            "según el umbral definido"
+        ),
+        "instrucciones": [
+            "Convertir fecha_col a datetime",
+            "Agrupar datos por periodos (por ejemplo semestres)",
+            "Calcular correlaciones entre variables y target por periodo",
+            "Comparar correlaciones entre periodos consecutivos",
+            "Identificar cambios mayores al umbral",
+            "Reportar variables con correlación inestable"
+        ]
+    }
 
-    return df, "fecha", "target", umbral
+    datos = (df, "fecha", "target", umbral)
+
+    return enunciado, datos 
