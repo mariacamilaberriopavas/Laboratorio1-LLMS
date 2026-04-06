@@ -29,7 +29,7 @@ def generar_caso_de_uso_evaluar_clusters_por_periodo():
     k_min = int(np.random.choice([2, 3]))
     k_max = int(np.random.choice([4, 5, 6]))
 
-    # ✅ BIEN INDENTADO
+    
     enunciado = {
         "titulo": "Segmentación Trimestral de Clientes",
         "descripcion": "Evaluar clustering por periodos de tiempo",
