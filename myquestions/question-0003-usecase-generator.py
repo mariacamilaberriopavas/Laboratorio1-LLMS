@@ -28,37 +28,34 @@ def generar_caso_de_uso_evaluar_clusters_por_periodo():
     k_min = int(np.random.choice([2, 3]))
     k_max = int(np.random.choice([4, 5, 6]))
 
-     enunciado = {
-    "titulo": "Segmentación Trimestral de Clientes",
+   enunciado = {
+        "titulo": "Segmentación Trimestral de Clientes",
+        "descripcion": "Evaluar clustering por periodos de tiempo",
+        "funcion": "evaluar_clusters_por_periodo",
+        "argumentos": {
+            "df": "DataFrame con variables numéricas y una columna de fechas",
+            "fecha_col": "Nombre de la columna de fechas",
+            "k_min": "Número mínimo de clusters",
+            "k_max": "Número máximo de clusters"
+        },
+        "retorno": (
+            "DataFrame con columnas ['trimestre', 'mejor_k', 'silhouette_score'] "
+            "ordenado cronológicamente"
+        ),
+        "instrucciones": [
+            "Convertir fecha_col a datetime",
+            "Extraer trimestre (YYYY-QX)",
+            "Agrupar por trimestre",
+            "Seleccionar variables numéricas",
+            "Imputar valores faltantes con la media",
+            "Escalar con StandardScaler",
+            "Probar k entre k_min y k_max con KMeans",
+            "Calcular silhouette_score",
+            "Elegir mejor k (empate -> menor k)",
+            "Omitir trimestres con pocos datos"
+        ]
+    }
 
-    "descripcion": "Evaluar clustering por periodos de tiempo",
+    datos = (df, "fecha", k_min, k_max)
 
-    "funcion": "evaluar_clusters_por_periodo",
-
-    "argumentos": {
-        "df": "DataFrame con variables numéricas y una columna de fechas",
-        "fecha_col": "Nombre de la columna de fechas",
-        "k_min": "Número mínimo de clusters",
-        "k_max": "Número máximo de clusters"
-    },
-
-    "retorno": (
-        "DataFrame con columnas ['trimestre', 'mejor_k', 'silhouette_score'] "
-        "ordenado cronológicamente"
-    ),
-
-    "instrucciones": [
-        "Convertir fecha_col a datetime",
-        "Extraer trimestre (YYYY-QX)",
-        "Agrupar por trimestre",
-        "Seleccionar variables numéricas",
-        "Imputar valores faltantes con la media",
-        "Escalar con StandardScaler",
-        "Probar k entre k_min y k_max con KMeans",
-        "Calcular silhouette_score",
-        "Elegir mejor k (empate -> menor k)",
-        "Omitir trimestres con pocos datos"
-    ]
-}
-    datos = ( df, "fecha", k_min, k_max)
     return enunciado, datos
