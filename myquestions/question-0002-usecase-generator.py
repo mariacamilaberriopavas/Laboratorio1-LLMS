@@ -43,12 +43,11 @@ def generar_caso_de_uso_evaluar_importancia_temporal():
             df.loc[mask, col] = np.nan
 
     #enunciado
-    enunciado = (
-        "Dado un DataFrame con una columna de fechas ('fecha'), varias variables "
-        "numéricas ('feature_i') y una variable objetivo ('target'), construya una "
-        "función que evalúe la importancia de las variables a lo largo del tiempo, "
-        "agrupando por año."
-    )
+    enunciado = {
+        "descripcion": "Evaluar la importancia de variables en el tiempo",
+        "instrucciones": "Agrupar por año usando la columna fecha y analizar la importancia de las features sobre el target"
+    }
+
 
     datos = (df, "target", "fecha")
     return enunciado, datos
