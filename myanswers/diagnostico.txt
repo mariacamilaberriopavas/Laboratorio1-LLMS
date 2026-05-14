@@ -1,0 +1,24 @@
+Pregunta 0383
+
+La función implementada coincide exactamente con el enunciado y con la función definida en el generador de casos de uso:
+
+def entrenar_pronostico_lasso(df, target_col, alpha_lasso)
+
+Mi implementación:
+- crea la columna ventas_ayer usando shift(1),
+- elimina valores nulos,
+- entrena un modelo Lasso,
+- calcula el coeficiente R²,
+- retorna el modelo y el valor R².
+
+Además, la firma de la función coincide exactamente con la usada en el generador de casos de uso proporcionado por el compañero.
+
+El error reportado por el validador fue:
+
+"entrenar_pronostico_lasso() missing 3 required positional arguments"
+
+Sin embargo, en el generador de casos de uso la función sí se invoca correctamente con los tres argumentos requeridos:
+
+modelo, r2 = entrenar_pronostico_lasso(df, target_col, alpha_lasso)
+
+Por lo tanto, el problema parece originarse en el proceso de validación automática y no en la implementación de la solución.
